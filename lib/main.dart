@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_blog/UI/Signup/signup.dart';
 import 'package:simple_blog/UI/Wall/Posts.dart';
-import 'package:simple_blog/UI/Wall/Wall.dart';
+import 'package:simple_blog/UI/Wall/wall.dart';
 import 'package:simple_blog/UI/Login/login.dart';
 import 'package:simple_blog/services/profile_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
