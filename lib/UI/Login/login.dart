@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:simple_blog/UI/BaceFook.dart';
 import 'package:simple_blog/services/services.dart';
+import 'package:email_validator/email_validator.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<Login> createState() => _LoginState();
 }
 
-class _SignupState extends State<Signup> {
+class _LoginState extends State<Login> {
   final _key = GlobalKey<FormState>();
   final _services = AuthService();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   bool _isloading = false;
   String? _errorMessage;
-  Future<void> _signUp() async {
+  Future<void> _signIn() async {
     if (_key.currentState!.validate()) {
       setState(() {
         _isloading = true;
         _errorMessage = null;
       });
       try {
-        final response = await _services.signUp(
+        final response = await _services.signIn(
           email: _emailController.text,
           password: _passwordController.text,
         );
         if (response.user != null) {
-          context.go('/BaceFook/Login');
+          if (mounted) {
+            context.go('/');
+          }
         }
       } catch (e) {
         setState(() {
@@ -62,7 +64,6 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaceFook(),
-
       body: Form(
         key: _key,
         child: Align(
@@ -83,7 +84,7 @@ class _SignupState extends State<Signup> {
                     ),
                   SizedBox(height: 100.0),
                   Text(
-                    'Sign Up',
+                    'Sign In',
                     style: TextStyle(
                       color: Color.fromARGB(255, 90, 181, 250),
                       fontSize: 24,
@@ -120,19 +121,12 @@ class _SignupState extends State<Signup> {
                   TextFormField(
                     controller: _passwordController,
                     validator: (password) {
-                      final passRegex = RegExp(
-                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-                      );
-                      if (password != null && passRegex.hasMatch(password)) {
-                        return null;
+                      if (password == null || password.isEmpty) {
+                        return 'Password is required';
                       }
-                      return '''
-Password neeeds to have at least 8 characters
-1 uppercase letter 
-1 lowercase letter 
-1 number
-1 special character''';
+                      return null;
                     },
+
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Enter your password',
@@ -153,42 +147,32 @@ Password neeeds to have at least 8 characters
                     obscureText: true,
                   ),
                   SizedBox(height: 5.0),
-                  TextButton(
-                    onPressed: () {
-                      _isloading ? null : _signUp();
-                    },
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 4, 1, 124),
-                    ),
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 90, 181, 250),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 5.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'Already have an account?',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 90, 181, 250),
-                          fontSize: 12,
+                      TextButton(
+                        onPressed: _isloading ? null : _signIn,
+                        style: TextButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 4, 1, 124),
+                        ),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 90, 181, 250),
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                       TextButton(
-                        onPressed: () => context.go('/BaceFook/Login'),
+                        onPressed: () => context.go('/BaceFook/Signup'),
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.transparent,
                         ),
                         child: Text(
-                          'Sign in',
+                          'Signup',
                           style: TextStyle(
                             color: Color.fromARGB(255, 90, 181, 250),
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                       ),
