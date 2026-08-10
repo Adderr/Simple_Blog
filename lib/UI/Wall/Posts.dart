@@ -222,9 +222,9 @@ class _CreatePostsState extends State<CreatePosts> {
                   if (_isEditMode && _existingImages.isNotEmpty)
                     SizedBox(
                       height: 100,
-                      width: (_existingImages.length * 88).toDouble(),
                       child: ListView(
                         scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
                         children: _existingImages.map((img) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
