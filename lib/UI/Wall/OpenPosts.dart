@@ -91,13 +91,13 @@ class _PostDetailState extends State<PostDetail> {
                       SizedBox(
                         height: 200,
                         child: ListView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 450),
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: images.length,
                           itemBuilder: (context, index) {
                             final imageUrl = images[index]['image_url'];
                             return Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
+                              padding: const EdgeInsets.only(right: 15.0),
                               child: Image.network(
                                 imageUrl,
                                 width: 200,
