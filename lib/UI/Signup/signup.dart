@@ -121,13 +121,13 @@ class _SignupState extends State<Signup> {
                     controller: _passwordController,
                     validator: (password) {
                       final passRegex = RegExp(
-                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{8,}$',
+                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\\#@$!%*?&])[A-Za-z\d\\#@$!%*?&]{8,}$',
                       );
                       if (password != null && passRegex.hasMatch(password)) {
                         return null;
                       }
                       return '''
-Password neeeds to have at least 8 characters
+Password needs to have at least 8 characters
 1 uppercase letter 
 1 lowercase letter 
 1 number
