@@ -138,7 +138,6 @@ class _ProfileState extends State<Profile> {
                         const SizedBox(height: 10),
                         TextButton(
                           onPressed: isLoading ? null : _handleUpdateName,
-                          child: const Text('Save'),
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 16),
                             backgroundColor: const Color.fromARGB(
@@ -154,6 +153,7 @@ class _ProfileState extends State<Profile> {
                               250,
                             ),
                           ),
+                          child: const Text('Save'),
                         ),
                       ],
                     ),
