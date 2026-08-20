@@ -121,13 +121,13 @@ class _SignupState extends State<Signup> {
                     controller: _passwordController,
                     validator: (password) {
                       final passRegex = RegExp(
-                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+                        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$',
                       );
                       if (password != null && passRegex.hasMatch(password)) {
                         return null;
                       }
                       return '''
-Password neeeds to have at least 8 characters
+Password needs to have at least 8 characters
 1 uppercase letter 
 1 lowercase letter 
 1 number
@@ -154,20 +154,25 @@ Password neeeds to have at least 8 characters
                   ),
                   SizedBox(height: 5.0),
                   TextButton(
-                    onPressed: () {
-                      _isloading ? null : _signUp();
-                    },
+                    onPressed: _isloading ? null : _signUp(),
+                    
                     style: TextButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 4, 1, 124),
                     ),
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 90, 181, 250),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                   child: _isloading 
+    ? const SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+      )
+    : const Text(
+        'Create Account',
+        style: TextStyle(
+          color: Color.fromARGB(255, 90, 181, 250),
+          fontSize: 16,
+        ),
+      ),
+),
                   SizedBox(height: 5.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
